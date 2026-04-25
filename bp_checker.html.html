@@ -1,0 +1,118 @@
+<!DOCTYPE html >
+< html  lang =" ja " >
+<head>​​
+    < meta  charset =" UTF-8 " >
+    < meta  name =" viewport " content =" width=device-width, initial-scale=1.0 " >
+    < title >ブルプロ数字当てチェッカー</ title >
+    <スタイル>
+        body { font -family : sans-serif; text-align : center; padding :  20px ; background :  # f0f4f8 ; color :  # 333 ; }
+        .card { background : white ; padding : 25px ; border-radius : 12px ; box - shadow : 0 4px 10px rgba ( 0 , 0 , 0 , 0.15 ) ; max-width : 420px ; margin : auto ; }       
+        h2 { font -size :  1.2em ; color :  # 0d47a1 ; margin -bottom :  20px ; border-bottom :  2px solid # e3f2fd ; padding- bottom :  10px ; }
+        .step - box { background :  # fff9c4 ; padding :  10px ; border-radius :  8px ; font -size : 0.9em  ; margin -bottom :  20px ; text-align : left ; line-height :  1.5 ; }
+        label { display : block; margin -top :  15px ; font-weight : bold; font-size :  0.95em ; }
+        select { width :  100 % ; padding :  12 px ; margin :  8 px  0 ; font-size :  16 px ; border-radius :  6 px ; border :  1 px solid # bbdefb ; background :  # fff ; }
+        .result { margin -top : 20px ; padding : 20px ; background : # e3f2fd ; border-radius : 8px ; font- weight : bold ; font - size : 1.1em ; color : # 1565c0 ; border : 2px solid # 90caf9 ; }       
+        .third -step { display : none ; margin - top :  15px ; background : #ffebee ; padding : 15px ; border - radius : 8px ; border : 1px solid # ffcdd2 ; }    
+        .alert { color : # d32f2f ; font-weight : bold; } 
+    </style>​​
+</head>​​
+<本文>
+
+< div  class =" card " >
+    < h2 >幻花の沈む地レイド< br >数字当て（4桁）攻略ツール</ h2 >
+
+    < div  class =" step-box " >
+        <strong>【使い方】</strong> <br>​​​​
+1. 1        回目<strong> 1111 </strong>を入力< br >
+2. 2        回目<strong> 1122 </strong>を入力< br >
+        3. 出た結果を選択してください。
+    </div>​​
+
+    < label > 1回目(1111)の正解数: </ label >
+    < select  id =" first " onchange =" calculate() " >
+        < option  value ="" >選択してください</ option >
+        < option  value = " 4 " > 4個</option>
+        < option  value = " 3 " > 3個</option>
+        < option  value = " 2 " > 2個</option>
+        < option  value = " 1 " > 1個</option>
+        < option  value = " 0 " > 0個</option>
+    </select>​​
+
+    < label > 2回目(1122)の正解数: </ label >
+    < select  id =" second " onchange =" calculate() " >
+        < option  value ="" >選択してください</ option >
+        < option  value = " 4 " > 4個</option>
+        < option  value = " 3 " > 3個</option>
+        < option  value = " 2 " > 2個</option>
+        < option  value = " 1 " > 1個</option>
+        < option  value = " 0 " > 0個</option>
+    </select>​​
+
+    < div  id =" thirdStepArea " class =" third-step " >
+        < label  class =" alert " > 3回目に「1212」を入力してください</ label >
+        < label >その結果の正解数：</ label >
+        < select  id =" third " onchange =" calculate() " >
+            < option  value ="" >結果を選択</ option >
+            < option  value = " 4 " > 4個</option>
+            < option  value = " 2 " > 2個</option>
+            < option  value = " 0 " > 0個</option>
+        </select>​​
+    </div>​​
+
+    < div  class =" result " id =" output " >
+        結果を選択してください
+    </div>​​
+</div>​​
+
+<スクリプト>
+function  calculate ( )  {
+    const  r1  =  document.getElementById ( ' first ' ) . value ;
+    const  r2  =  document.getElementById ( ' second ' ) . value ;
+    const  r3  =  document.getElementById ( ' third ' ) . value ;
+    const  out  =  document.getElementById ( ' output ' ) ;
+    const  thirdArea  =  document.getElementById ( ' thirdStepArea ' ) ;
+
+    thirdArea.style.display = " none " ;​​  
+
+    if  ( r1  ===  "" )  {  out . innerText  =  "結果を選択してください" ; 戻る;  }
+
+    if  ( r1  ===  "4" )  {  out . innerText  =  "正解：1111" ; 戻る;  }
+    if  ( r1  ===  "0" )  {  out . innerText  =  "正解：2222" ; 戻る;  }
+
+    if  ( r2  ===  "" )  {  out . innerText  =  "結果を選択してください" ; 戻る;  }
+
+    if  ( r1  ===  "3" )  {
+        if  ( r2  ===  "3" )  {  out . innerText  =  "候補：1112 / 1121" ; 戻る;  }
+        if  ( r2  ===  "1" )  {  out . innerText  =  "候補：1211 / 2111" ; 戻る;  }
+        if  ( r2  ===  "2" )  {
+            thirdArea.style.display = " block " ;​​  
+            if  ( r3  ===  "" )  {  out . innerText  =  "3回目に「1212」を入力！" ; 戻る;  }
+            if  ( r3  ===  "0" )  {  out . innerText  =  "正解：2121" ; 戻る;  }
+            if  ( r3  ===  "4" )  {  out . innerText  =  "正解：1212" ; 戻る;  }
+            if  ( r3  ===  "2" )  {  out . innerText  =  "候補：1221 / 2112" ; 戻る;  }
+        }
+    }
+
+    if  ( r1  ===  "1" )  {
+        if  ( r2  ===  "3" )  {  out . innerText  =  "候補：1222 / 2122" ; 戻る;  }
+        if  ( r2  ===  "1" )  {  out . innerText  =  "候補：2212 / 2221" ; 戻る;  }
+    }
+
+    if  ( r1  ===  "2" )  {
+        if  ( r2  ===  "0" )  {  out . innerText  =  "正解：2211" ; 戻る;  }
+        if  ( r2  ===  "4" )  {  out . innerText  =  "正解：1122" ; 戻る;  }
+        if  ( r2  ===  "2" )  {
+            thirdArea.style.display = " block " ;​​  
+            if  ( r3  ===  "" )  {  out . innerText  =  "3回目に「1212」を入力！" ; 戻る;  }
+            if  ( r3  ===  "0" )  {  out . innerText  =  "正解：2121" ; 戻る;  }
+            if  ( r3  ===  "4" )  {  out . innerText  =  "正解：1212" ; 戻る;  }
+            if  ( r3  ===  "2" )  {  out . innerText  =  "候補：1221 / 2112" ; 戻る;  }
+        }
+    }
+
+    外。innerText  =  "入力ミスがないか確認してください" ;
+}
+</script>​​
+
+</body>​​
+</html>
